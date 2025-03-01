@@ -1,37 +1,51 @@
 <script>
-	let busName;
-    let routes = [56, 201,523,9,901]
-    let showItems = true;
-    let i = 5;
-    
+  let busName= $state(["1","2","3","4"]);
+  let routes = $state([]);
+  let listlen = $state(routes.length);
+  let i = 0;
+  let showItems = $state(false);
 
-    function searchBus(busName){
-        showItems = true
-        return 
-    }
-    
+  function Bus(id, name, coordinate, routes) {
+      this.id = id;
+      this.Name = name;
+      this.coord = coordinate;
+      this.routes = routes;
+  }
+
+  function addBus(Bus){
+      busName.push(Bus)
+  }
 
 </script>
 
-<style>
-  main {
-    font-family: sans-serif;
-    text-align: center;
-  }
-</style>
-{#if $currentUser}
-    <h1>Seach Bus</h1>
-{/if}
+
+
+<div class = "search-wrapper">
+  <label for='search'>Search Bus</label>
+  <input type ="search" id ="search"/>
+  <button on:click={() => showItems = true}>Search</button>
+</div>
+
+
 
 {#if showItems}
-	{#each routes as item}
-		<div>
-			{item}
-		</div>
-	{/each}
+{#each busName.slice(0, listlen) as item}
+  <div id= 'searchResult'>
+    {item}
+  </div>
+{/each}
 {/if}
 
-<div class = 'container'>
-    <h1>Search Bus</h1>
-</div>
-<button on:click= {() => showItems = true} type= "submit">Search</button>
+
+<style>
+  .search-wrapper{
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 100px;
+  }
+  #searchResults{
+      bottom: 0
+  }
+</style>;
